@@ -11,6 +11,14 @@ const Home = () => {
     // 2. Yükleniyor durumunu kontrol etmek için bir state
     const [loading, setLoading] = useState<boolean>(true);
 
+    const dateFormatter = new Intl.DateTimeFormat('tr-TR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+
     useEffect(() => {
 
         // 3. Veri çekme fonksiyonu
@@ -18,18 +26,17 @@ const Home = () => {
 
             try {
 
-                // Şimdilik gerçek bir API yerine test verisi sunan bir yer kullanacağız
-                // Veya kendi elindeki diziyi buraya bir gecikmeyle set edebilirsin.
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=6');
+                // API'ye istek atıyoruz
+                const response = await axios.get('http://localhost:5000/api/news/');
 
                 // Gelen veriyi kendi formatımıza uyduruyoruz (Mapping)
                 const formattedNews: News[] = response.data.map((item: any) => ({
                     id: item.id,
                     title: item.title,
-                    summary: item.body.substring(0, 100) + "...",
-                    content: item.body,
-                    date: "11.01.2026",
-                    category: "Teknoloji"
+                    summary: item.content.substring(0, 100) + "...",
+                    content: item.content,
+                    date: dateFormatter.format(new Date(item.date_created)),
+                    category: item.category
                 }));
 
                 setNewsList(formattedNews);
