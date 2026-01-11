@@ -1,48 +1,36 @@
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import NewsCard from '@/components/NewsCard';
-import type { News } from '@/types';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import NewsDetail from './pages/NewsDetail';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  // 1. Haberleri bir dizi (Array) içinde tanımlıyoruz
-  const newsList: News[] = [
-    {
-      id: 1,
-      title: "React ve TypeScript ile Başlangıç",
-      summary: "Modern web dünyasına ilk adımı attık.",
-      content: "Uzun içerik...",
-      date: "10.01.2024",
-      category: "Teknoloji"
-    },
-    {
-      id: 2,
-      title: "Bootstrap 5 Entegrasyonu",
-      summary: "Tasarım süreçlerini hızlandıran CSS kütüphanesi.",
-      content: "Uzun içerik...",
-      date: "11.01.2024",
-      category: "Güncel"
-    },
-    {
-      id: 3,
-      title: "Ekonomi Gündemi",
-      summary: "Yazılım dünyasındaki ekonomik gelişmeler.",
-      content: "Uzun içerik...",
-      date: "12.01.2024",
-      category: "Ekonomi"
-    }
-  ];
-
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Son Haberler</h2>
-      <div className="row g-4">
-        {/* 2. jQuery $.each yerine .map() kullanıyoruz */}
-        {newsList.map((item) => (
-          <div className="col-md-4" key={item.id}>
-            <NewsCard data={item} />
+    <Router>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container">
+          <Link className="navbar-brand" to="/">Kurumsal Portalı</Link>
+          <div className="navbar-nav">
+            <Link className="nav-link" to="/">Ana Sayfa</Link>
+            <Link className="nav-link" to="/hakkimizda">Hakkımızda</Link>
+            <Link className="nav-link" to="/iletisim">İletişim</Link>
           </div>
-        ))}
+        </div>
+      </nav>
+
+      <div className="container mt-4">
+        {/* Sayfa içerikleri burada değişecek */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hakkimizda" element={<About />} />
+          <Route path="/iletisim" element={<Contact />} />
+
+          {/* Yeni Dinamik Rota: */}
+          <Route path="/haber/:id" element={<NewsDetail />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

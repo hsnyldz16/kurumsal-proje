@@ -1,5 +1,6 @@
 // src/components/NewsCard.tsx
-import type { News } from '@/types'; // Yazdığın interface'i içeri alıyoruz
+import type { News } from '@/types'; // types.ts dosyasından News interface'i içeri alıyoruz
+import { Link } from 'react-router-dom';
 
 // Bileşenin alacağı verileri (Props) tanımlıyoruz
 interface Props {
@@ -16,7 +17,9 @@ const NewsCard = ({ data }: Props) => {
         </div>
         <h5 className="card-title">{data.title}</h5>
         <p className="card-text text-secondary">{data.summary}</p>
-        <button className="btn btn-outline-primary btn-sm">Devamını Oku</button>
+        <Link to={`/haber/${data.id}`} className="btn btn-primary btn-sm">
+          Devamını Oku
+        </Link>
       </div>
     </div>
   );
