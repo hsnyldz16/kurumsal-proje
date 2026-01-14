@@ -5,6 +5,8 @@ import Contact from './pages/Contact';
 import NewsDetail from './pages/NewsDetail';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import AdminNews from './pages/AdminNews';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -30,9 +32,15 @@ function App() {
           <Route path="/iletisim" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/haber" element={<AdminNews />} />
+          {/* Alternatif olarak /admin/news rotasını da ekliyoruz */}
+          <Route path="/admin/news" element={<AdminNews />} />
 
           {/* Yeni Dinamik Rota: */}
           <Route path="/haber/:id" element={<NewsDetail />} />
+
+          {/* 404 Sayfası */}
+          <Route path="*" element={<div className="text-center mt-5"><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa mevcut değil.</p></div>} />
         </Routes>
       </div>
     </Router>
